@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  position: fixed;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+  background-color: black;
+}
+
+.logo {
+  font-family: "B612 Mono", monospace;
+  font-size: 40px;
+  margin-left: 10px;
+  color: white;
+}
+
+.searchBar {
+  width: 200px;
+  border-radius: 6px;
+  border: none;
+  padding: 5px;
+}

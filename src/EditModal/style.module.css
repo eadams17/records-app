@@ -1,0 +1,28 @@
+/* .detailsContainer {
+  width: 300px;
+} */
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  margin: 10px;
+}
+
+.label {
+  margin-right: 3px;
+}
+
+.info {
+  text-align: right;
+}
+
+.button {
+  background-color: #da14ff;
+  border-color: #da14ff;
+}
+
+.button:hover {
+  background-color: #9600b2;
+  border-color: #9600b2;
+}
