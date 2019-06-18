@@ -11,13 +11,40 @@
 .logo {
   font-family: "B612 Mono", monospace;
   font-size: 40px;
-  margin-left: 10px;
+  margin-left: 20px;
   color: white;
 }
 
+.label {
+  margin: 0px 10px 0px 10px;
+  color: white;
+  white-space: nowrap;
+}
+
+.button {
+  font-family: "Open Sans", sans-serif;
+  background-color: #da14ff;
+  border-color: #da14ff;
+  color: white;
+}
+
+.button:hover {
+  background-color: #9600b2;
+  border-color: #9600b2;
+}
+
+.menu {
+  font-family: "Open Sans", sans-serif;
+}
+
 .searchBar {
-  width: 200px;
   border-radius: 6px;
-  border: none;
-  padding: 5px;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
 }

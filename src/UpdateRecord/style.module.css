@@ -1,6 +1,6 @@
-/* .detailsContainer {
-  width: 300px;
-} */
+.modal {
+  font-family: "Open Sans", sans-serif;
+}
 
 .row {
   display: flex;

@@ -13,9 +13,10 @@ import {
 class EditModal extends PureComponent {
   render() {
     const { record, visible, toggle } = this.props;
+
     return (
       <div>
-        <Modal isOpen={visible} toggle={toggle}>
+        <Modal isOpen={visible} toggle={toggle} className={styles.modal}>
           <ModalHeader toggle={toggle} charCode="🎵">
             Edit Album Information
           </ModalHeader>

@@ -1,10 +1,10 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, Fragment } from "react";
 import NavBar from "../NavBar";
-import ItemGrid from "../ItemGrid";
+import RecordGrid from "../RecordGrid";
 import styles from "./style.module.css";
 
 class App extends PureComponent {
-  state = { recordData: null };
+  state = { allRecordData: null, filteredRecordData: null };
   componentDidMount() {
     const proxyUrl = "https://cors-anywhere.herokuapp.com/";
     const targetUrl =
@@ -14,17 +14,34 @@ class App extends PureComponent {
       .then(result => result.json())
       .then(response => {
         this.setState({
-          recordData: response.results,
+          allRecordData: response.results,
           nextPageUrl: response.nextPage
         });
       });
   }
+
+  updateRecordData = data => {
+    this.setState({ filteredRecordData: data });
+  };
+
   render() {
-    const { recordData } = this.state;
+    const { allRecordData, filteredRecordData } = this.state;
     return (
       <div className={styles.container}>
-        <NavBar />
-        {recordData && <ItemGrid records={recordData} />}
+        {allRecordData && (
+          <Fragment>
+            <NavBar
+              allRecords={allRecordData}
+              filteredRecords={filteredRecordData}
+              updateRecords={this.updateRecordData}
+            />
+            <RecordGrid
+              allRecords={allRecordData}
+              filteredRecords={filteredRecordData}
+              updateRecords={this.updateRecordData}
+            />
+          </Fragment>
+        )}
       </div>
     );
   }

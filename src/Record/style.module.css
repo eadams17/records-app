@@ -5,6 +5,7 @@
   border-radius: 6px;
   margin: 5px;
   border: 1px solid black;
+  max-height: 600px;
 }
 
 .container:hover {
@@ -13,12 +14,13 @@
 
 .detailsContainer {
   width: 300px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
 }
 
 .image {
   width: 300px;
   height: 300px;
-  font-size: 14px;
 }
 
 .row {

@@ -1,0 +1,22 @@
+import React, { PureComponent } from "react";
+import Record from "../Record";
+import styles from "./style.module.css";
+
+class RecordGrid extends PureComponent {
+  render() {
+    const { allRecords, filteredRecords } = this.props;
+    const records = filteredRecords ? filteredRecords : allRecords;
+
+    return (
+      <div className={styles.container}>
+        {records.map((record, i) => {
+          return (
+            <Record key={i} record={record} isLast={i === records.length - 1} />
+          );
+        })}
+      </div>
+    );
+  }
+}
+
+export default RecordGrid;

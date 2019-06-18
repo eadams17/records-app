@@ -4,38 +4,88 @@ import {
   ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  InputGroup,
+  Input
 } from "reactstrap";
 
 class NavBar extends PureComponent {
-  state = { searchType: "album", dropdownOpen: false };
+  state = { searchType: "album", dropdownOpen: false, searchQuery: "" };
+
   toggle = () => {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
     });
   };
+
   changeValue = e => {
-    this.setState({ dropDownValue: e.currentTarget.textContent });
+    this.setState({ searchType: e.currentTarget.textContent });
   };
-  render() {
+
+  handleSearchQuery = e => {
+    const searchString = e.currentTarget.value;
+    this.setState({ searchQuery: searchString }, () => {
+      this.filterRecordEntries(searchString);
+    });
+  };
+
+  filterRecordEntries(searchString) {
     const { searchType } = this.state;
+    const { allRecords, updateRecords } = this.props;
+    const filteredRecords = allRecords.filter(record =>
+      this.matchRecordEntry(record, searchString, searchType)
+    );
+    console.log("filteredRecords", filteredRecords);
+    updateRecords(filteredRecords);
+  }
+
+  matchRecordEntry(record, searchString, searchType) {
+    switch (searchType) {
+      case "album":
+        return record.album_title.toLowerCase().includes(searchString);
+      case "artist":
+        return record.artist.name.toLowerCase().includes(searchString);
+      case "year":
+        return record.year.toString().includes(searchString);
+      default:
+        break;
+    }
+  }
+
+  render() {
+    const { searchType, dropdownOpen, searchQuery } = this.state;
     return (
       <div className={styles.container}>
-        <div className={styles.logo}>DISCOgraphy</div>
-        <div>
-          <input className={styles.searchBar} placeholder="type here..." />
+        <a style={{ textDecoration: "none" }} href="/">
+          <div className={styles.logo}>DISCOgraphy</div>
+        </a>
+        <div className={styles.searchContainer}>
+          <InputGroup size="sm">
+            <Input
+              className={styles.searchBar}
+              placeholder="type here..."
+              defaultValue={searchQuery}
+              onChange={this.handleSearchQuery}
+            />
+          </InputGroup>
+          <div className={styles.label}>search by</div>
+          <ButtonDropdown isOpen={dropdownOpen} toggle={this.toggle}>
+            <DropdownToggle className={styles.button} caret size="sm">
+              {searchType}
+            </DropdownToggle>
+            <DropdownMenu className={styles.menu}>
+              <DropdownItem onClick={this.changeValue} dropdownvalue="Artist">
+                album
+              </DropdownItem>
+              <DropdownItem onClick={this.changeValue} dropdownvalue="Artist">
+                artist
+              </DropdownItem>
+              <DropdownItem onClick={this.changeValue} dropdownvalue="Year">
+                year
+              </DropdownItem>
+            </DropdownMenu>
+          </ButtonDropdown>
         </div>
-        <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-          <DropdownToggle caret>{searchType}</DropdownToggle>
-          <DropdownMenu>
-            <DropdownItem onClick={this.changeValue} dropDownValue="Artist">
-              Artist
-            </DropdownItem>
-            <DropdownItem onClick={this.changeValue} dropDownValue="Year">
-              Year
-            </DropdownItem>
-          </DropdownMenu>
-        </ButtonDropdown>
       </div>
     );
   }

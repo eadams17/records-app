@@ -1,9 +1,9 @@
 import React, { PureComponent } from "react";
 import styles from "./style.module.css";
 import RecordImage from "../record.svg";
-import EditModal from "../EditModal";
+import UpdateRecord from "../UpdateRecord";
 
-class Item extends PureComponent {
+class Record extends PureComponent {
   state = { visible: false };
 
   toggleModal = () => {
@@ -13,11 +13,15 @@ class Item extends PureComponent {
   };
 
   render() {
-    const { record } = this.props;
+    const { record, isLast } = this.props;
     return (
-      <div className={styles.container} onClick={() => this.toggleModal()}>
+      <div
+        className={styles.container}
+        onClick={() => this.toggleModal()}
+        style={isLast ? { marginBottom: "20px" } : {}}
+      >
         {this.state.visible && (
-          <EditModal
+          <UpdateRecord
             record={record}
             visible={this.state.visible}
             toggle={this.toggleModal}
@@ -55,4 +59,4 @@ class Item extends PureComponent {
   }
 }
 
-export default Item;
+export default Record;
