@@ -6,6 +6,7 @@
   height: 100px;
   width: 100%;
   background-color: black;
+  z-index: 100;
 }
 
 .logo {
@@ -22,6 +23,7 @@
 }
 
 .button {
+  width: 80px;
   font-family: "Open Sans", sans-serif;
   background-color: #da14ff;
   border-color: #da14ff;
@@ -29,6 +31,11 @@
 }
 
 .button:hover {
+  background-color: #9600b2;
+  border-color: #9600b2;
+}
+
+.button:active {
   background-color: #9600b2;
   border-color: #9600b2;
 }

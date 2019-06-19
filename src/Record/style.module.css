@@ -13,14 +13,13 @@
 }
 
 .detailsContainer {
-  width: 300px;
   font-family: "Open Sans", sans-serif;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .image {
-  width: 300px;
-  height: 300px;
+  width: 100px;
+  height: 100px;
 }
 
 .row {
@@ -31,9 +30,30 @@
 }
 
 .label {
-  margin-right: 3px;
+  margin-right: 30px;
 }
 
 .info {
   text-align: right;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30ch;
+  height: 30ch;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.5s;
+  will-change: transform;
+  border: 15px solid #da14ff;
+  margin: 30px 10px 30px 10px;
+}
+
+.card:hover {
+  cursor: pointer;
+  box-shadow: 0px 30px 100px -10px rgba(0, 0, 0, 0.4);
 }
