@@ -8,6 +8,7 @@ import {
   FormGroup,
   Input
 } from "reactstrap";
+import humanizeString from "humanize-string";
 
 class EditModal extends PureComponent {
   // state could just hold record
@@ -15,79 +16,22 @@ class EditModal extends PureComponent {
     album: this.props.record.album_title,
     artist: this.props.record.artist.name,
     year: this.props.record.year,
-    condition: this.props.record.condition
+    condition: humanizeString(this.props.record.condition)
   };
 
   updateField = (e, field) => {
     this.setState({ [field]: e.target.value });
   };
 
-  updateSingleRecord() {
-    const { allRecords, record, updateRecords, toggle } = this.props;
-    const { album, artist, year, condition } = this.state;
-    const recordIndex = allRecords.findIndex(
-      recordItem => recordItem.album_title === record.album_title
-    );
-    let updatedRecords = allRecords;
-    updatedRecords[recordIndex] = {
-      album_title: album,
-      artist: { name: artist, id: allRecords[recordIndex].artist.id },
-      condition: condition,
-      year: year
-    };
-    console.log("record", updatedRecords[recordIndex]);
-    updateRecords(updatedRecords);
-    toggle();
-  }
-  updateMultipleRecords() {
-    const { allRecords, record, updateRecords, toggle } = this.props;
-    const { artist } = this.state;
-    const indices = allRecords.reduce((arr, recordItem, index) => {
-      recordItem.artist.id === record.artist.id && arr.push(index);
-      return arr;
-    }, []);
-    let updatedRecords = allRecords;
-    for (let i = 0; i < indices.length; i++) {
-      const index = indices[i];
-      const album = allRecords[index].album_title;
-      const condition = allRecords[index].condition;
-      const year = allRecords[index].year;
-      updatedRecords[index] = {
-        album_title: album,
-        artist: {
-          name: artist,
-          id: record.artist.id
-        },
-        condition: condition,
-        year: year
-      };
-    }
-    updateRecords(updatedRecords);
-    toggle();
-  }
-
-  checkForMultipleArtistEntries() {
-    const { allRecords, record } = this.props;
-    return (
-      allRecords.filter(
-        recordEntry => recordEntry.artist.id === record.artist.id
-      ).length > 1
-    );
-  }
-
   handleSubmit = () => {
-    const multipleEntriesExist = this.checkForMultipleArtistEntries();
-    const artistUpdated = this.state.artist === this.props.record.artist.name;
-    console.log("1", multipleEntriesExist);
-    console.log("2", artistUpdated);
-    if (!multipleEntriesExist && artistUpdated) {
-      this.updateSingleRecord();
-    } else {
-      this.updateMultipleRecords();
-    }
+    // implement record update
   };
+
+  handleKeyPress = e => {
+    e.key === "Enter" && this.props.toggle();
+  };
+
   render() {
-    console.log("state", this.state);
     const { record, visible, toggle } = this.props;
 
     return (
@@ -96,9 +40,11 @@ class EditModal extends PureComponent {
           <div className={styles.modalHeaderContainer}>
             <p className={styles.modalHeader}>Edit Album Information</p>
             <i
+              tabIndex="0"
               id={styles.closeIcon}
               className="fas fa-compact-disc"
               onClick={toggle}
+              onKeyPress={this.handleKeyPress}
             />
           </div>
           <ModalBody>
@@ -120,14 +66,6 @@ class EditModal extends PureComponent {
                 />
               </div>
               <div className={styles.row}>
-                <li className={styles.label}>Condition</li>
-                <Input
-                  defaultValue={record.condition}
-                  className={styles.info}
-                  onChange={value => this.updateField(value, "condition")}
-                />
-              </div>
-              <div className={styles.row}>
                 <li className={styles.label}>Year</li>
                 <Input
                   defaultValue={record.year}
@@ -135,13 +73,29 @@ class EditModal extends PureComponent {
                   onChange={value => this.updateField(value, "year")}
                 />
               </div>
+              <div className={styles.row}>
+                <li className={styles.label}>Condition</li>
+                <Input
+                  defaultValue={humanizeString(record.condition)}
+                  className={styles.info}
+                  onChange={value => this.updateField(value, "condition")}
+                />
+              </div>
             </FormGroup>
           </ModalBody>
           <ModalFooter>
-            <Button className={styles.button} onClick={this.handleSubmit}>
+            <Button
+              className={styles.button}
+              onClick={this.handleSubmit}
+              onKeyPress={this.handleKeyPress}
+            >
               Save
             </Button>
-            <Button className={styles.button} onClick={toggle}>
+            <Button
+              className={styles.button}
+              onClick={toggle}
+              onKeyPress={this.handleKeyPress}
+            >
               Cancel
             </Button>
           </ModalFooter>

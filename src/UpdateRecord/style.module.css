@@ -1,5 +1,6 @@
 .modal {
   font-family: "Open Sans", sans-serif;
+  top: 25%;
 }
 
 .row {
@@ -12,6 +13,7 @@
 
 .label {
   margin-right: 3px;
+  font-weight: bold;
 }
 
 .info {
@@ -19,14 +21,30 @@
   text-align: center;
 }
 
+.info:focus {
+  border-color: #00ff00;
+  box-shadow: 0 1px 1px #00ff00 inset, 0 0 8px #00ff00;
+  outline: 0 none;
+}
+
+.info:active {
+  outline: 0 none;
+}
+
 .button {
   background-color: #da14ff;
-  border-color: #da14ff;
+  border: 1px solid #da14ff;
 }
 
 .button:hover {
   background-color: #9600b2;
   border-color: #9600b2;
+}
+
+.button:focus {
+  border-color: #00ff00;
+  box-shadow: 0 1px 1px #00ff00 inset, 0 0 8px #00ff00;
+  outline: 0 none;
 }
 
 .modalHeaderContainer {
@@ -43,9 +61,16 @@
 
 #closeIcon {
   color: #da14ff;
+  border: 3px solid white;
+  border-radius: 15px;
 }
 
 #closeIcon:hover {
   color: #9600b2;
   cursor: pointer;
+}
+
+#closeIcon:focus {
+  border-color: #00ff00;
+  outline: 0 none;
 }
