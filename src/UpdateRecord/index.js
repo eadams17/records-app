@@ -10,6 +10,7 @@ import {
 } from "reactstrap";
 
 class EditModal extends PureComponent {
+  // state could just hold record
   state = {
     album: this.props.record.album_title,
     artist: this.props.record.artist.name,
