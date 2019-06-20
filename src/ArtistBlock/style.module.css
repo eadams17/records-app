@@ -1,0 +1,83 @@
+.artistContainer {
+  display: flex;
+  align-items: center;
+  color: white;
+  margin-left: 50px;
+}
+
+.artistContainer:hover {
+  cursor: pointer;
+}
+
+.artist {
+  font-family: "Open Sans", sans-serif;
+  font-size: 25px;
+  margin-bottom: 0;
+  margin: 0px 10px 0px 10px;
+}
+.rowContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 50px 0px 50px 0px;
+  border-bottom: 1px solid white;
+}
+
+.recordGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.editField {
+  margin-left: 10px;
+  max-width: 300px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.editField:focus {
+  border-color: #00ff00;
+  box-shadow: 0 1px 1px #00ff00 inset, 0 0 8px #00ff00;
+  outline: 0 none;
+}
+
+.editField:active {
+  outline: 0 none;
+}
+
+.button {
+  background-color: #da14ff;
+  border: 1px solid #da14ff;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.button:hover {
+  background-color: #9600b2;
+  border-color: #9600b2;
+}
+
+.button:focus {
+  border-color: #00ff00;
+  box-shadow: 0 1px 1px #00ff00 inset, 0 0 8px #00ff00;
+  outline: 0 none;
+}
+
+#editIcon,
+#nextIcon {
+  color: #da14ff;
+  border: 3px solid black;
+  border-radius: 15px;
+}
+
+#editIcon:hover,
+#nextIcon:hover {
+  color: #9600b2;
+  cursor: pointer;
+}
+
+.paginationContainer {
+  display: flex;
+  align-items: center;
+}

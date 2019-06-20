@@ -57,7 +57,8 @@ export function Panel({
   toggleModal,
   isActive,
   toggleActiveState,
-  handleKeyPress
+  handleKeyPress,
+  artistName
 }) {
   const [props, set] = useSpring(() => ({
     xys: [0, 0, 1],
@@ -98,7 +99,7 @@ export function Panel({
             <i className="fas fa-user-circle" />
             <li className={styles.label}>Artist</li>
           </div>
-          <li className={styles.info}>{record.artist.name}</li>
+          <li className={styles.info}>{artistName}</li>
         </div>
         <div className={styles.row}>
           <div className={styles.innerRow}>

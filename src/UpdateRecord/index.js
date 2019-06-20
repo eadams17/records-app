@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import styles from "./style.module.css";
 import {
   Button,
@@ -10,11 +10,10 @@ import {
 } from "reactstrap";
 import humanizeString from "humanize-string";
 
-class EditModal extends PureComponent {
+class EditModal extends Component {
   // state could just hold record
   state = {
     album: this.props.record.album_title,
-    artist: this.props.record.artist.name,
     year: this.props.record.year,
     condition: humanizeString(this.props.record.condition)
   };
@@ -23,12 +22,26 @@ class EditModal extends PureComponent {
     this.setState({ [field]: e.target.value });
   };
 
-  handleSubmit = () => {
-    // implement record update
-  };
-
   handleKeyPress = e => {
     e.key === "Enter" && this.props.toggle();
+  };
+
+  handleSubmit = () => {
+    console.log("hit");
+    const { record, updateRecords, toggle } = this.props;
+    const { album, year, condition } = this.state;
+    const recordData = {
+      id: record.id,
+      album_title: album,
+      artist: {
+        name: record.artist.name,
+        id: record.artist.id
+      },
+      year: year,
+      condition: condition
+    };
+    updateRecords(recordData);
+    toggle();
   };
 
   render() {
@@ -58,14 +71,6 @@ class EditModal extends PureComponent {
                 />
               </div>
               <div className={styles.row}>
-                <li className={styles.label}>Artist</li>
-                <Input
-                  defaultValue={record.artist.name}
-                  className={styles.info}
-                  onChange={value => this.updateField(value, "artist")}
-                />
-              </div>
-              <div className={styles.row}>
                 <li className={styles.label}>Year</li>
                 <Input
                   defaultValue={record.year}
@@ -86,7 +91,7 @@ class EditModal extends PureComponent {
           <ModalFooter>
             <Button
               className={styles.button}
-              onClick={this.handleSubmit}
+              onClick={() => this.handleSubmit()}
               onKeyPress={this.handleKeyPress}
             >
               Save

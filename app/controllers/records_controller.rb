@@ -7,12 +7,14 @@ class RecordsController < ApplicationController
   end
 
   get '' do
-    param   :limit, Integer, default: 25
+    param   :limit, Integer, default: 15
     param   :offset, Integer, default: 0
     param   :query, String
 
     data = File.read('./app/db.json')
     records = JSON.parse(data)
+    p records.length
+    records = records.sort { |record_a, record_b| record_a['artist']['name'] <=> record_b['artist']['name'] }
 
     if query = params['query']
         query = query.downcase
@@ -26,9 +28,8 @@ class RecordsController < ApplicationController
 
     limit = params['limit']
     offset = params['offset']
-
     records = records[offset, limit]
 
-    records.to_json
+    Resources::ArtistsRecords.new(records).as_json
   end
 end

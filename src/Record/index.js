@@ -1,8 +1,8 @@
-import React, { PureComponent, Fragment } from "react";
+import React, { Component, Fragment } from "react";
 import Panel from "../Panel";
 import UpdateRecord from "../UpdateRecord";
 
-class Record extends PureComponent {
+class Record extends Component {
   state = { visible: false, isActive: false };
 
   toggleModal = () => {
@@ -12,7 +12,6 @@ class Record extends PureComponent {
   };
 
   toggleActiveState = () => {
-    // leave record spinning if modal is open
     if (!this.state.visible) {
       this.setState(prevState => ({
         isActive: !prevState.isActive
@@ -25,14 +24,16 @@ class Record extends PureComponent {
   };
 
   render() {
-    const { record, isLast } = this.props;
+    const { record, isLast, updateRecords, artistName } = this.props;
     const { visible, isActive } = this.state;
+
     return (
       <Fragment>
         <Panel
           isLast={isLast}
           isActive={isActive}
           record={record}
+          artistName={artistName}
           toggleModal={this.toggleModal}
           toggleActiveState={this.toggleActiveState}
           handleKeyPress={this.handleKeyPress}
@@ -43,6 +44,7 @@ class Record extends PureComponent {
             visible={visible}
             toggle={this.toggleModal}
             toggleActiveState={this.toggleActiveState}
+            updateRecords={updateRecords}
           />
         )}
       </Fragment>

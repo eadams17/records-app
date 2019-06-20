@@ -1,9 +1,9 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import styles from "./style.module.css";
 import { Input } from "reactstrap";
 // import { debounce } from "lodash";
 
-class NavBar extends PureComponent {
+class NavBar extends Component {
   state = { searchQuery: "" };
 
   handleSearchQuery = e => {
@@ -25,6 +25,10 @@ class NavBar extends PureComponent {
             </span>
           </a>
         </div>
+        <p className={styles.description}>
+          The ultimate record collection application. Click on any artist's name
+          or album to update the record's information.
+        </p>
         <Input
           className={styles.searchBar}
           placeholder="type your search query here..."

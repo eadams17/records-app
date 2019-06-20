@@ -8,7 +8,7 @@ require 'sinatra/param'
 require 'json'
 
 # pull in the helpers and controllers
-Dir.glob('./app/{helpers,controllers,models}/*.rb').each { |file| require file }
+Dir.glob('./app/{helpers,controllers,models,resources}/*.rb').each { |file| require file }
 
 # map the controllers to routes
 map('/') { run ApplicationController }
