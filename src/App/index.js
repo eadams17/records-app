@@ -5,19 +5,15 @@ import styles from "./style.module.css";
 
 class App extends PureComponent {
   state = { allRecordData: null, filteredRecordData: null };
-  componentDidMount() {
-    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-    const targetUrl =
-      "https://gist.githubusercontent.com/seanders/df38a92ffc4e8c56962e51b6e96e188f/raw/b032669142b7b57ede3496dffee5b7c16b8071e1/page1.json";
-    const url = proxyUrl + targetUrl;
-    fetch(url)
+
+  async componentDidMount() {
+    console.log("hit");
+    const response = await fetch("./data.json")
       .then(result => result.json())
       .then(response => {
-        this.setState({
-          allRecordData: response.results,
-          nextPageUrl: response.nextPage
-        });
+        return response;
       });
+    this.setState({ allRecordData: response });
   }
 
   updateRecordData = data => {

@@ -35,7 +35,6 @@ class NavBar extends PureComponent {
     const filteredRecords = allRecords.filter(record =>
       this.matchRecordEntry(record, searchString, searchType)
     );
-    console.log("filteredRecords", filteredRecords);
     updateRecords(filteredRecords);
   }
 
