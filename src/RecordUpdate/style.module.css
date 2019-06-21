@@ -1,0 +1,42 @@
+.modal {
+  top: 25%;
+}
+
+.container {
+  font-family: "Open Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.iconContainer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+#closeIcon {
+  color: #da14ff;
+  margin: 10px 10px 0px 0px;
+}
+
+#closeIcon:hover {
+  color: #9600b2;
+  cursor: pointer;
+}
+
+.button {
+  background-color: #da14ff;
+  border: 1px solid #da14ff;
+}
+
+.button:hover {
+  background-color: #9600b2;
+  border-color: #9600b2;
+}

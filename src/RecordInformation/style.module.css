@@ -1,0 +1,54 @@
+.container:hover {
+  cursor: pointer;
+}
+
+.detailsContainer {
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  background-color: white;
+  margin: 5px 10px 10px 10px;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.image {
+  width: 100px;
+  height: 100px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  margin: 10px;
+}
+
+.innerRow {
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  margin-right: 30px;
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+#album {
+  font-style: italic;
+}
+
+.conditionContainer {
+  display: flex;
+}
+
+.info {
+  text-align: right;
+  margin-right: 5px;
+}
+
+.editContainer {
+  display: flex;
+  cursor: pointer;
+}

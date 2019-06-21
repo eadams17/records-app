@@ -1,15 +1,9 @@
 import React, { PureComponent } from "react";
+import RecordInformation from "../RecordInformation";
 import styles from "./style.module.css";
-import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  FormGroup,
-  Input
-} from "reactstrap";
+import { Modal, Button, ModalFooter } from "reactstrap";
 
-class EditModal extends PureComponent {
+class RecordUpdate extends PureComponent {
   state = {
     album: this.props.record.album_title,
     artist: this.props.record.artist.name,
@@ -34,7 +28,6 @@ class EditModal extends PureComponent {
       condition: condition,
       year: year
     };
-    console.log("record", updatedRecords[recordIndex]);
     updateRecords(updatedRecords);
     toggle();
   }
@@ -61,6 +54,9 @@ class EditModal extends PureComponent {
         year: year
       };
     }
+    updatedRecords.sort((recordA, recordB) => {
+      return recordA.artist.name.localeCompare(recordB.artist.name);
+    });
     updateRecords(updatedRecords);
     toggle();
   }
@@ -77,8 +73,6 @@ class EditModal extends PureComponent {
   handleSubmit = () => {
     const multipleEntriesExist = this.checkForMultipleArtistEntries();
     const artistUpdated = this.state.artist === this.props.record.artist.name;
-    console.log("1", multipleEntriesExist);
-    console.log("2", artistUpdated);
     if (!multipleEntriesExist && artistUpdated) {
       this.updateSingleRecord();
     } else {
@@ -86,57 +80,25 @@ class EditModal extends PureComponent {
     }
   };
   render() {
-    console.log("state", this.state);
     const { record, visible, toggle } = this.props;
 
     return (
-      <div>
-        <Modal isOpen={visible} toggle={toggle} className={styles.modal}>
-          <div className={styles.modalHeaderContainer}>
-            <p className={styles.modalHeader}>Edit Album Information</p>
+      <Modal isOpen={visible} toggle={toggle} className={styles.modal}>
+        <div className={styles.container}>
+          <div className={styles.iconContainer}>
             <i
               id={styles.closeIcon}
-              className="fas fa-compact-disc"
+              className="fa fa-times-circle fa-lg"
               onClick={toggle}
             />
           </div>
-          <ModalBody>
-            <FormGroup className={styles.detailsContainer}>
-              <div className={styles.row}>
-                <li className={styles.label}>Album</li>
-                <Input
-                  defaultValue={record.album_title}
-                  className={styles.info}
-                  onChange={value => this.updateField(value, "album")}
-                />
-              </div>
-              <div className={styles.row}>
-                <li className={styles.label}>Artist</li>
-                <Input
-                  defaultValue={record.artist.name}
-                  className={styles.info}
-                  onChange={value => this.updateField(value, "artist")}
-                />
-              </div>
-              <div className={styles.row}>
-                <li className={styles.label}>Condition</li>
-                <Input
-                  defaultValue={record.condition}
-                  className={styles.info}
-                  onChange={value => this.updateField(value, "condition")}
-                />
-              </div>
-              <div className={styles.row}>
-                <li className={styles.label}>Year</li>
-                <Input
-                  defaultValue={record.year}
-                  className={styles.info}
-                  onChange={value => this.updateField(value, "year")}
-                />
-              </div>
-            </FormGroup>
-          </ModalBody>
-          <ModalFooter>
+          <i className="fas fa-compact-disc fa-6x fa-spin" />
+          <RecordInformation
+            record={record}
+            updateField={this.updateField}
+            insideModal={true}
+          />
+          <ModalFooter className={styles.buttonsContainer}>
             <Button className={styles.button} onClick={this.handleSubmit}>
               Save
             </Button>
@@ -144,10 +106,10 @@ class EditModal extends PureComponent {
               Cancel
             </Button>
           </ModalFooter>
-        </Modal>
-      </div>
+        </div>
+      </Modal>
     );
   }
 }
 
-export default EditModal;
+export default RecordUpdate;

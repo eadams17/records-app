@@ -40,13 +40,14 @@ class NavBar extends PureComponent {
   }
 
   matchRecordEntry(record, searchString, searchType) {
+    const query = searchString.toLowerCase();
     switch (searchType) {
       case "album":
-        return record.album_title.toLowerCase().includes(searchString);
+        return record.album_title.toLowerCase().includes(query);
       case "artist":
-        return record.artist.name.toLowerCase().includes(searchString);
+        return record.artist.name.toLowerCase().includes(query);
       case "year":
-        return record.year.toString().includes(searchString);
+        return record.year.toString().includes(query);
       default:
         break;
     }
