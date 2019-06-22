@@ -13,7 +13,6 @@ const trans = (x, y, s) =>
   `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
 
 export function Panel({
-  isLast,
   record,
   toggleModal,
   isActive,

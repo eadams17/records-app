@@ -3,8 +3,15 @@ import NavBar from "../NavBar";
 import RecordGrid from "../RecordGrid";
 import styles from "./style.module.css";
 
+export const LIMIT = 15;
+
 class App extends PureComponent {
-  state = { allRecordData: null, filteredRecordData: null };
+  state = {
+    allRecordData: null,
+    filteredRecordData: null,
+    currentPage: 1,
+    pageCount: null
+  };
 
   async componentDidMount() {
     const response = await fetch("./data.json")
@@ -15,15 +22,47 @@ class App extends PureComponent {
     response.sort((recordA, recordB) => {
       return recordA.artist.name.localeCompare(recordB.artist.name);
     });
-    this.setState({ allRecordData: response });
+    const paginatedRecords = this.paginateRecordData(response);
+    this.setState({
+      allRecordData: paginatedRecords[0],
+      pageCount: paginatedRecords[1]
+    });
   }
 
-  updateRecordData = data => {
-    this.setState({ filteredRecordData: data });
+  updateRecordData = records => {
+    const paginatedRecords = this.paginateRecordData(records);
+    this.setState({
+      filteredRecordData: paginatedRecords[0],
+      pageCount: paginatedRecords[1]
+    });
+  };
+
+  paginateRecordData(records) {
+    const recordHash = {};
+    let index = 0;
+    let id = 1;
+    while (index < records.length) {
+      recordHash[id] = records.slice(index, LIMIT + index);
+      index += LIMIT;
+      id += 1;
+    }
+    // handle case when search yields no results, pageCount should always be at least 1
+    let pageCount = Object.keys(recordHash).length;
+    pageCount = pageCount ? pageCount : 1;
+    return [recordHash, pageCount];
+  }
+
+  updatePage = pageNumber => {
+    this.setState({ currentPage: pageNumber });
   };
 
   render() {
-    const { allRecordData, filteredRecordData } = this.state;
+    const {
+      allRecordData,
+      filteredRecordData,
+      currentPage,
+      pageCount
+    } = this.state;
     return (
       <div className={styles.container}>
         {allRecordData && (
@@ -32,11 +71,15 @@ class App extends PureComponent {
               allRecords={allRecordData}
               filteredRecords={filteredRecordData}
               updateRecords={this.updateRecordData}
+              currentPage={currentPage}
             />
             <RecordGrid
               allRecords={allRecordData}
               filteredRecords={filteredRecordData}
               updateRecords={this.updateRecordData}
+              currentPage={currentPage}
+              pageCount={pageCount}
+              updatePage={this.updatePage}
             />
           </Fragment>
         )}

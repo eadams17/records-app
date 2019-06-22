@@ -8,10 +8,10 @@ import {
   InputGroup,
   Input
 } from "reactstrap";
-import { matchRecordEntry } from "../utils/helperFunctions";
+import { matchRecordEntry, getFullCollection } from "../utils/helperFunctions";
 
 class NavBar extends PureComponent {
-  state = { searchType: "album", dropdownOpen: false, searchQuery: "" };
+  state = { searchType: "all", dropdownOpen: false, searchQuery: "" };
 
   toggle = () => {
     this.setState({
@@ -20,7 +20,8 @@ class NavBar extends PureComponent {
   };
 
   changeValue = e => {
-    this.setState({ searchType: e.currentTarget.textContent });
+    this.setState({ searchType: e.currentTarget.textContent, searchQuery: "" });
+    this.input.focus();
   };
 
   handleSearchQuery = e => {
@@ -33,7 +34,9 @@ class NavBar extends PureComponent {
   filterRecordEntries(searchString) {
     const { searchType } = this.state;
     const { allRecords, updateRecords } = this.props;
-    const filteredRecords = allRecords.filter(record =>
+    const pageCount = Object.keys(allRecords).length;
+    const fullCollection = getFullCollection(allRecords, pageCount);
+    const filteredRecords = fullCollection.filter(record =>
       matchRecordEntry(record, searchString, searchType)
     );
     updateRecords(filteredRecords);
@@ -46,12 +49,19 @@ class NavBar extends PureComponent {
         <a style={{ textDecoration: "none" }} href="/">
           <div className={styles.logo}>DISCOgraphy</div>
         </a>
+        <p className={styles.instructions}>
+          The ultimate record collection application. Click on any album to
+          update the record's information.
+        </p>
         <div className={styles.searchContainer}>
           <InputGroup size="sm">
             <Input
+              innerRef={ref => {
+                this.input = ref;
+              }}
               className={styles.searchBar}
               placeholder="type here..."
-              defaultValue={searchQuery}
+              value={searchQuery}
               onChange={this.handleSearchQuery}
             />
           </InputGroup>
@@ -61,14 +71,23 @@ class NavBar extends PureComponent {
               {searchType}
             </DropdownToggle>
             <DropdownMenu className={styles.menu}>
-              <DropdownItem onClick={this.changeValue} dropdownvalue="Artist">
+              <DropdownItem onClick={this.changeValue} dropdownvalue="all">
+                all
+              </DropdownItem>
+              <DropdownItem onClick={this.changeValue} dropdownvalue="album">
                 album
               </DropdownItem>
-              <DropdownItem onClick={this.changeValue} dropdownvalue="Artist">
+              <DropdownItem onClick={this.changeValue} dropdownvalue="artist">
                 artist
               </DropdownItem>
-              <DropdownItem onClick={this.changeValue} dropdownvalue="Year">
+              <DropdownItem onClick={this.changeValue} dropdownvalue="year">
                 year
+              </DropdownItem>
+              <DropdownItem
+                onClick={this.changeValue}
+                dropdownvalue="condition"
+              >
+                condition
               </DropdownItem>
             </DropdownMenu>
           </ButtonDropdown>

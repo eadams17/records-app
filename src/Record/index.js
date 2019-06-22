@@ -16,13 +16,18 @@ class Record extends Component {
   };
 
   render() {
-    const { record, isLast, updateRecords, allRecords } = this.props;
+    const {
+      record,
+      updateRecords,
+      allRecords,
+      pageCount,
+      currentPage
+    } = this.props;
     const { visible } = this.state;
 
     return (
       <Fragment>
         <Panel
-          isLast={isLast}
           record={record}
           toggleModal={this.toggleModal}
           handleKeyPress={this.handleKeyPress}
@@ -34,6 +39,8 @@ class Record extends Component {
             visible={visible}
             toggle={this.toggleModal}
             updateRecords={updateRecords}
+            pageCount={pageCount}
+            currentPage={currentPage}
           />
         )}
       </Fragment>

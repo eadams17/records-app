@@ -5,7 +5,8 @@ import { Modal, Button, ModalFooter } from "reactstrap";
 import {
   updateArtistName,
   checkForMultipleArtistEntries,
-  getRecordIndex
+  getRecordIndex,
+  getFullCollection
 } from "../utils/helperFunctions";
 
 class RecordUpdate extends PureComponent {
@@ -21,33 +22,40 @@ class RecordUpdate extends PureComponent {
   };
 
   updateSingleRecord() {
-    const { allRecords, record, updateRecords, toggle } = this.props;
+    const { allRecords, record, updateRecords, toggle, pageCount } = this.props;
+    const fullCollection = getFullCollection(allRecords, pageCount);
     const { album, artist, year, condition } = this.state;
-    const recordIndex = getRecordIndex(allRecords, record);
+    const recordIndex = getRecordIndex(fullCollection, record);
 
-    let updatedRecords = allRecords;
+    let updatedRecords = fullCollection;
     updatedRecords[recordIndex] = {
       album_title: album,
-      artist: { name: artist, id: allRecords[recordIndex].artist.id },
+      artist: { name: artist, id: fullCollection[recordIndex].artist.id },
       condition: condition,
-      year: year
+      year: year,
+      id: record.id
     };
     updateRecords(updatedRecords);
     toggle();
   }
   updateMultipleRecords() {
-    const { allRecords, record, updateRecords, toggle } = this.props;
+    const { allRecords, record, updateRecords, toggle, pageCount } = this.props;
     const { album, artist, year, condition } = this.state;
-    const alteredRecords = updateArtistName(allRecords, record, artist);
-    const recordIndex = getRecordIndex(allRecords, record);
+    const fullCollection = getFullCollection(allRecords, pageCount);
+    const alteredRecords = updateArtistName(fullCollection, record, artist);
+    console.log("alteredRecords", alteredRecords);
+    const recordIndex = getRecordIndex(alteredRecords, record);
 
     let updatedRecords = alteredRecords;
+    console.log("album", album);
     updatedRecords[recordIndex] = {
       album_title: album,
       artist: { name: artist, id: alteredRecords[recordIndex].artist.id },
       condition: condition,
-      year: year
+      year: year,
+      id: record.id
     };
+    console.log("updatedRecord", updatedRecords[recordIndex]);
     updateRecords(alteredRecords);
     toggle();
   }
@@ -57,9 +65,10 @@ class RecordUpdate extends PureComponent {
   }
 
   handleSubmit = () => {
-    const { allRecords, record } = this.props;
+    const { allRecords, record, pageCount } = this.props;
+    const fullCollection = getFullCollection(allRecords, pageCount);
     const multipleEntriesExist = checkForMultipleArtistEntries(
-      allRecords,
+      fullCollection,
       record
     );
     const artistUpdated = this.state.artist !== this.props.record.artist.name;

@@ -66,6 +66,12 @@
   text-overflow: ellipsis;
 }
 
+.infoModal:focus {
+  box-shadow: 0 1px 1px #00ff00 inset, 0 0 8px #00ff00;
+  border-color: #00ff00;
+  outline: 0 none;
+}
+
 .conditionContainer {
   display: flex;
   align-items: center;

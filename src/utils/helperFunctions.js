@@ -1,4 +1,5 @@
 import React from "react";
+import humanizeString from "humanize-string";
 
 export const getConditionLevel = condition => {
   switch (condition) {
@@ -41,16 +42,36 @@ export const renderIcons = condition => {
 
 export const matchRecordEntry = (record, searchString, searchType) => {
   const query = searchString.toLowerCase();
+  const albumMatch = record.album_title.toLowerCase().includes(query);
+  const artistMatch = record.artist.name.toLowerCase().includes(query);
+  const yearMatch = record.year.toString().includes(query);
+  const conditionMatch = humanizeString(record.condition)
+    .toLowerCase()
+    .includes(query);
   switch (searchType) {
+    case "all":
+      return albumMatch || artistMatch || yearMatch || conditionMatch;
     case "album":
-      return record.album_title.toLowerCase().includes(query);
+      return albumMatch;
     case "artist":
-      return record.artist.name.toLowerCase().includes(query);
+      return artistMatch;
     case "year":
-      return record.year.toString().includes(query);
+      return yearMatch;
+    case "condition":
+      return conditionMatch;
     default:
       break;
   }
+};
+
+export const getFullCollection = (records, pageCount) => {
+  let fullCollection = [];
+  let pageNumber = 1;
+  while (pageNumber <= pageCount) {
+    fullCollection = fullCollection.concat(records[pageNumber]);
+    pageNumber += 1;
+  }
+  return fullCollection;
 };
 
 export const checkForMultipleArtistEntries = (allRecords, record) => {
@@ -78,9 +99,12 @@ export const updateArtistName = (allRecords, record, artist) => {
         id: record.artist.id
       },
       condition: condition,
-      year: year
+      year: year,
+      id: record.id
     };
+    console.log("record", updatedRecords[index]);
   }
+  console.log("updatedRecords", updatedRecords);
   updatedRecords.sort((recordA, recordB) => {
     return recordA.artist.name.localeCompare(recordB.artist.name);
   });
@@ -88,6 +112,4 @@ export const updateArtistName = (allRecords, record, artist) => {
 };
 
 export const getRecordIndex = (allRecords, record) =>
-  allRecords.findIndex(
-    recordItem => recordItem.album_title === record.album_title
-  );
+  allRecords.findIndex(recordItem => recordItem.id === record.id);
