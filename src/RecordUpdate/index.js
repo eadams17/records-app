@@ -2,6 +2,11 @@ import React, { PureComponent } from "react";
 import RecordInformation from "../RecordInformation";
 import styles from "./style.module.css";
 import { Modal, Button, ModalFooter } from "reactstrap";
+import {
+  updateArtistName,
+  checkForMultipleArtistEntries,
+  getRecordIndex
+} from "../utils/helperFunctions";
 
 class RecordUpdate extends PureComponent {
   state = {
@@ -18,9 +23,8 @@ class RecordUpdate extends PureComponent {
   updateSingleRecord() {
     const { allRecords, record, updateRecords, toggle } = this.props;
     const { album, artist, year, condition } = this.state;
-    const recordIndex = allRecords.findIndex(
-      recordItem => recordItem.album_title === record.album_title
-    );
+    const recordIndex = getRecordIndex(allRecords, record);
+
     let updatedRecords = allRecords;
     updatedRecords[recordIndex] = {
       album_title: album,
@@ -33,66 +37,59 @@ class RecordUpdate extends PureComponent {
   }
   updateMultipleRecords() {
     const { allRecords, record, updateRecords, toggle } = this.props;
-    const { artist } = this.state;
-    const indices = allRecords.reduce((arr, recordItem, index) => {
-      recordItem.artist.id === record.artist.id && arr.push(index);
-      return arr;
-    }, []);
-    let updatedRecords = allRecords;
-    for (let i = 0; i < indices.length; i++) {
-      const index = indices[i];
-      const album = allRecords[index].album_title;
-      const condition = allRecords[index].condition;
-      const year = allRecords[index].year;
-      updatedRecords[index] = {
-        album_title: album,
-        artist: {
-          name: artist,
-          id: record.artist.id
-        },
-        condition: condition,
-        year: year
-      };
-    }
-    updatedRecords.sort((recordA, recordB) => {
-      return recordA.artist.name.localeCompare(recordB.artist.name);
-    });
-    updateRecords(updatedRecords);
+    const { album, artist, year, condition } = this.state;
+    const alteredRecords = updateArtistName(allRecords, record, artist);
+    const recordIndex = getRecordIndex(allRecords, record);
+
+    let updatedRecords = alteredRecords;
+    updatedRecords[recordIndex] = {
+      album_title: album,
+      artist: { name: artist, id: alteredRecords[recordIndex].artist.id },
+      condition: condition,
+      year: year
+    };
+    updateRecords(alteredRecords);
     toggle();
   }
 
-  checkForMultipleArtistEntries() {
-    const { allRecords, record } = this.props;
-    return (
-      allRecords.filter(
-        recordEntry => recordEntry.artist.id === record.artist.id
-      ).length > 1
-    );
+  handleKeyPress(e) {
+    e.key === "Enter" && this.handleSubmit();
   }
 
   handleSubmit = () => {
-    const multipleEntriesExist = this.checkForMultipleArtistEntries();
-    const artistUpdated = this.state.artist === this.props.record.artist.name;
-    if (!multipleEntriesExist && artistUpdated) {
+    const { allRecords, record } = this.props;
+    const multipleEntriesExist = checkForMultipleArtistEntries(
+      allRecords,
+      record
+    );
+    const artistUpdated = this.state.artist !== this.props.record.artist.name;
+    if (!artistUpdated || (artistUpdated && !multipleEntriesExist)) {
       this.updateSingleRecord();
     } else {
       this.updateMultipleRecords();
     }
   };
+
   render() {
     const { record, visible, toggle } = this.props;
 
     return (
-      <Modal isOpen={visible} toggle={toggle} className={styles.modal}>
+      <Modal
+        isOpen={visible}
+        toggle={toggle}
+        className={styles.modal}
+        onKeyPress={e => this.handleKeyPress(e)}
+      >
         <div className={styles.container}>
           <div className={styles.iconContainer}>
             <i
+              tabIndex="0"
               id={styles.closeIcon}
               className="fa fa-times-circle fa-lg"
               onClick={toggle}
             />
           </div>
-          <i className="fas fa-compact-disc fa-6x fa-spin" />
+          <i className="fas fa-compact-disc fa-9x fa-spin" />
           <RecordInformation
             record={record}
             updateField={this.updateField}

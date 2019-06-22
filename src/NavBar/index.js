@@ -8,6 +8,7 @@ import {
   InputGroup,
   Input
 } from "reactstrap";
+import { matchRecordEntry } from "../utils/helperFunctions";
 
 class NavBar extends PureComponent {
   state = { searchType: "album", dropdownOpen: false, searchQuery: "" };
@@ -33,24 +34,9 @@ class NavBar extends PureComponent {
     const { searchType } = this.state;
     const { allRecords, updateRecords } = this.props;
     const filteredRecords = allRecords.filter(record =>
-      this.matchRecordEntry(record, searchString, searchType)
+      matchRecordEntry(record, searchString, searchType)
     );
-    console.log("filteredRecords", filteredRecords);
     updateRecords(filteredRecords);
-  }
-
-  matchRecordEntry(record, searchString, searchType) {
-    const query = searchString.toLowerCase();
-    switch (searchType) {
-      case "album":
-        return record.album_title.toLowerCase().includes(query);
-      case "artist":
-        return record.artist.name.toLowerCase().includes(query);
-      case "year":
-        return record.year.toString().includes(query);
-      default:
-        break;
-    }
   }
 
   render() {

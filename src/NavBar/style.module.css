@@ -9,17 +9,29 @@
   z-index: 100;
 }
 
-.logo {
-  font-family: "B612 Mono", monospace;
-  font-size: 40px;
-  margin-left: 20px;
-  color: white;
+.searchContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+}
+
+.searchBar {
+  border-radius: 6px;
 }
 
 .label {
   margin: 0px 10px 0px 10px;
   color: white;
   white-space: nowrap;
+}
+
+.logo {
+  font-family: "B612 Mono", monospace;
+  font-size: 40px;
+  margin-left: 20px;
+  color: white;
 }
 
 .button {
@@ -42,16 +54,4 @@
 
 .menu {
   font-family: "Open Sans", sans-serif;
-}
-
-.searchBar {
-  border-radius: 6px;
-}
-
-.searchContainer {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-  font-family: "Open Sans", sans-serif;
-  font-size: 14px;
 }

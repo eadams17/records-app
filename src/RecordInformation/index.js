@@ -8,12 +8,13 @@ class RecordInformation extends PureComponent {
   render() {
     const { record, insideModal, updateField } = this.props;
     const condition = humanizeString(record.condition);
+    const labelStyle = insideModal ? styles.modalLabel : styles.label;
     return (
       <div className={styles.detailsContainer}>
         <div className={styles.row}>
           <div className={styles.innerRow}>
             <i className="fas fa-compact-disc" />
-            <li className={styles.label}>Album</li>
+            <li className={labelStyle}>Album</li>
           </div>
           {!insideModal && (
             <li id={styles.album} className={styles.info}>
@@ -23,7 +24,7 @@ class RecordInformation extends PureComponent {
           {insideModal && (
             <Input
               defaultValue={record.album_title}
-              className={styles.info}
+              className={styles.infoModal}
               onChange={value => updateField(value, "album")}
             />
           )}
@@ -31,7 +32,7 @@ class RecordInformation extends PureComponent {
         <div className={styles.row}>
           <div className={styles.innerRow}>
             <i className="fas fa-user-circle" />
-            <li className={styles.label}>Artist</li>
+            <li className={labelStyle}>Artist</li>
           </div>
           {!insideModal && (
             <li className={styles.info}>{record.artist.name}</li>
@@ -39,7 +40,7 @@ class RecordInformation extends PureComponent {
           {insideModal && (
             <Input
               defaultValue={record.artist.name}
-              className={styles.info}
+              className={styles.infoModal}
               onChange={value => updateField(value, "artist")}
             />
           )}
@@ -47,13 +48,13 @@ class RecordInformation extends PureComponent {
         <div className={styles.row}>
           <div className={styles.innerRow}>
             <i className="far fa-calendar-alt" />
-            <li className={styles.label}> Year</li>
+            <li className={labelStyle}> Year</li>
           </div>
           {!insideModal && <li className={styles.info}>{record.year}</li>}
           {insideModal && (
             <Input
               defaultValue={record.year}
-              className={styles.info}
+              className={styles.infoModal}
               onChange={value => updateField(value, "year")}
             />
           )}
@@ -61,9 +62,12 @@ class RecordInformation extends PureComponent {
         <div className={styles.row}>
           <div className={styles.innerRow}>
             <i className="fas fa-heartbeat" />
-            <li className={styles.label}>Condition</li>
+            <li className={labelStyle}>Condition</li>
           </div>
-          <div className={styles.conditionContainer}>
+          <div
+            id={insideModal ? styles.modalCondition : {}}
+            className={styles.conditionContainer}
+          >
             {!insideModal && (
               <li id={styles.condition} className={styles.info}>
                 {condition}
@@ -71,12 +75,16 @@ class RecordInformation extends PureComponent {
             )}
             {insideModal && (
               <Input
-                defaultValue={record.condition}
-                className={styles.info}
+                defaultValue={humanizeString(record.condition)}
+                className={styles.infoModal}
                 onChange={value => updateField(value, "condition")}
               />
             )}
-            <div>{renderIcons(condition)}</div>
+            {!insideModal && (
+              <div className={styles.conditionContainer}>
+                {renderIcons(condition)}
+              </div>
+            )}
           </div>
         </div>
       </div>
