@@ -1,0 +1,76 @@
+.container {
+  display: flex;
+  position: fixed;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+  background-color: black;
+  z-index: 100;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+}
+
+.searchBar {
+  border-radius: 6px;
+}
+
+.searchBar:focus {
+  box-shadow: 0 1px 1px #00ff00 inset, 0 0 8px #00ff00;
+  border-color: #00ff00;
+  outline: 0 none;
+}
+
+.logo > a:focus {
+  border-color: #00ff00;
+  outline: 0 none;
+}
+
+.label {
+  margin: 0px 10px 0px 10px;
+  color: white;
+  white-space: nowrap;
+}
+
+.logo {
+  font-family: "B612 Mono", monospace;
+  font-size: 40px;
+  margin-left: 20px;
+  color: white;
+}
+
+.button {
+  width: 90px;
+  font-family: "Open Sans", sans-serif;
+  background-color: #da14ff;
+  border-color: #da14ff;
+  color: white;
+}
+
+.button:hover {
+  background-color: #9600b2;
+  border-color: #9600b2;
+}
+
+.button:active {
+  background-color: #9600b2;
+  border-color: #9600b2;
+}
+
+.menu {
+  font-family: "Open Sans", sans-serif;
+}
+
+.instructions {
+  font-family: "Open Sans", sans-serif;
+  margin-bottom: 0px;
+  color: white;
+  width: 400px;
+  text-align: center;
+}

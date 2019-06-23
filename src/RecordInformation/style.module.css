@@ -1,0 +1,88 @@
+.container:hover {
+  cursor: pointer;
+}
+
+.detailsContainer {
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  background-color: white;
+  margin: 5px 10px 10px 10px;
+  border-radius: 6px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.image {
+  width: 100px;
+  height: 100px;
+}
+
+.error {
+  margin-bottom: 0px;
+  color: #da14ff;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  margin: 10px;
+}
+
+.innerRow {
+  display: flex;
+  align-items: center;
+}
+
+.label,
+.modalLabel {
+  margin-right: 30px;
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+.modalLabel {
+  font-size: 16px;
+}
+
+#album {
+  font-style: italic;
+}
+
+.conditionContainer {
+  display: flex;
+}
+
+#modalCondition {
+  justify-content: flex-end;
+}
+
+.info {
+  max-height: 40px;
+  max-width: 120px;
+  text-align: right;
+  margin-right: 5px;
+  overflow: hidden;
+}
+
+.infoModal {
+  text-align: center;
+  margin-right: 5px;
+  width: 300px;
+  text-overflow: ellipsis;
+}
+
+.infoModal:focus {
+  box-shadow: 0 1px 1px #00ff00 inset, 0 0 8px #00ff00;
+  border-color: #00ff00;
+  outline: 0 none;
+}
+
+.conditionContainer {
+  display: flex;
+  align-items: center;
+}

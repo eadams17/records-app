@@ -1,0 +1,30 @@
+.container {
+  overflow: scroll;
+  margin-top: 100px;
+  background-color: black;
+  height: 100vh;
+}
+
+.recordsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.paginationContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#leftArrow,
+#rightArrow {
+  color: #da14ff;
+  margin: 10px;
+}
+
+#leftArrow:hover,
+#rightArrow:hover {
+  cursor: pointer;
+  color: #9600b2;
+}

@@ -1,68 +1,28 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Logikcull Challenge
 
-## Available Scripts
+A small app that stores and display record information, with the ability to edit and search for records by keyword.
 
-In the project directory, you can run:
+## Setup
 
-### `npm start`
+1. From the root directory, run `npm install`
+2. Run `npm run start`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The app should now be accessible from `http://localhost:3000/`
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Overview
 
-### `npm test`
+This is a purely frontend application using **React** and various **React** packages. The record data is fetched locally from a JSON file and presented in a paginated, grid fashion . The navbar is fixed at the top throughout scroll and has a search bar with various options to search by (all, artist name, album name, year of publication and record condition). The record data that is displayed and available to edit include all of the aforementioned.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Upon load, a `GET` request is made in the `componentDidMount` function of the highest level `App` component to fetch all of the record data. The record data is asynchronously loaded into that component's state and distributed to all children as props. There is an `updateRecords` class function that is passed to children for updating state when record edits and searches are performed. As there is no server, any edits will not persist.
 
-### `npm run build`
+## Technology
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+I chose to use **React** for building out the UI. I chose **React** because it's fast, well-documented and supports some really cool packages for adding various features. I used `Reactstrap` because they offer some useful `Bootstrap` components that are both responsive and have sleek, easily-customizable design. I also decided to try using `React Spring`. I used it to make the record cards respond to when a user hovers over the card. The package seems to offer some powerful ability to make some really awesome animations based on spring-physics. For styling, I decided to use `CSS Modules`. I like that all styles are scoped locally, helping to keep things more organized.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## Optimizations & Considerations
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Since this is purely a frontend application, there are some challenges that came with processing the data. I would have liked to implement a server (I was thinking `Sinatra` since it's a lightweight framework and I've been wanting to use `Ruby` again) possibly with a `PostgreSQL` database. I would have built out a RESTful API, using a `GET` route for handling the fetching of all records. I would have also added optional parameters for limit and offset to handle the pagination on the backend. I would have also built a `PUT` route for handling the record edits and a `POST` and `DELETE` for handling add/removing records.
 
-### `npm run eject`
+Being able to have this backend implementation would have also helped with separating out the handling of updating individual records versus multiple, as there are some records that belong to the same artist. I was thinking about building out the UI in a different way where the records would be arranged in rows by artist, which would have made it easier to handle. I ultimately decided to keep the UI like because I felt like it was more aesthetically pleasing.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+I think given more time I also would have definitely played around more with the `React Spring` library to build out some more fun, interactive features. Additionally, I would have maybe expanded on accessibility. I tried to make the application fairly accessible by adding various tabbing and using elements that are screen reader friendly when dealing with text descriptions.
