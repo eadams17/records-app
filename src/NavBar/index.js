@@ -11,7 +11,7 @@ import {
 import { matchRecordEntry, getFullCollection } from "../utils/helperFunctions";
 
 class NavBar extends PureComponent {
-  state = { searchType: "all", dropdownOpen: false, searchQuery: "" };
+  state = { searchType: "Search By", dropdownOpen: false, searchQuery: "" };
 
   toggle = () => {
     this.setState({
@@ -34,12 +34,13 @@ class NavBar extends PureComponent {
 
   filterRecordEntries(searchString) {
     const { searchType } = this.state;
+    const searchCategory = searchType === "Search By" ? "all" : searchType;
     const { allRecords, updateRecords } = this.props;
     const pageCount = Object.keys(allRecords).length;
     const fullCollection = getFullCollection(allRecords, pageCount);
 
     const filteredRecords = fullCollection.filter(record =>
-      matchRecordEntry(record, searchString, searchType)
+      matchRecordEntry(record, searchString, searchCategory)
     );
 
     updateRecords(filteredRecords);
@@ -63,21 +64,22 @@ class NavBar extends PureComponent {
               innerRef={ref => {
                 this.input = ref;
               }}
-              className={styles.searchBar}
+              id={styles.searchBar}
               placeholder="type here..."
               value={searchQuery}
               onChange={this.handleSearchQuery}
             />
           </InputGroup>
-          <div className={styles.label}>search by</div>
           <ButtonDropdown isOpen={dropdownOpen} toggle={this.toggle}>
             <DropdownToggle className={styles.button} caret size="sm">
               {searchType}
             </DropdownToggle>
             <DropdownMenu className={styles.menu}>
-              <DropdownItem onClick={this.changeValue} dropdownvalue="all">
-                all
-              </DropdownItem>
+              {searchType !== "Search By" && (
+                <DropdownItem onClick={this.changeValue} dropdownvalue="all">
+                  all
+                </DropdownItem>
+              )}
               <DropdownItem onClick={this.changeValue} dropdownvalue="album">
                 album
               </DropdownItem>

@@ -3,6 +3,9 @@ import Record from "../Record";
 import styles from "./style.module.css";
 
 class RecordGrid extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   componentDidUpdate(prevProps, prevState) {
     const { currentPage, pageCount, updatePage } = this.props;
 
@@ -17,8 +20,10 @@ class RecordGrid extends Component {
 
     if (direction === "forward" && pageCount >= currentPage + 1) {
       updatePage(currentPage + 1);
+      window.scrollTo(0, 0);
     } else if (direction === "backward" && currentPage - 1 !== 0) {
       updatePage(currentPage - 1);
+      window.scrollTo(0, 0);
     }
   };
 

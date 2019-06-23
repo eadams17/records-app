@@ -20,8 +20,8 @@ class RecordUpdate extends PureComponent {
     errors: []
   };
 
-  updateField = (e, field) => {
-    this.setState({ [field]: e.target.value });
+  updateField = (value, field) => {
+    this.setState({ [field]: value });
   };
 
   updateSingleRecord() {
@@ -48,7 +48,6 @@ class RecordUpdate extends PureComponent {
     const { allRecords, record, updateRecords, toggle, pageCount } = this.props;
     const { album, artist, year, condition } = this.state;
     const fullCollection = getFullCollection(allRecords, pageCount);
-    console.log("fullCollection-update", fullCollection);
     const alteredRecords = updateArtistName(
       fullCollection,
       record,

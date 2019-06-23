@@ -72,7 +72,6 @@ export const getFullCollection = records => {
     fullCollection = fullCollection.concat(records[pageNumber]);
     pageNumber += 1;
   }
-  console.log("fullCollection-helper", fullCollection);
   return fullCollection;
 };
 
@@ -102,7 +101,7 @@ export const updateArtistName = (allRecords, record, artist) => {
       },
       condition: condition,
       year: year,
-      id: record.id
+      id: allRecords[index].id
     };
   }
   updatedRecords.sort((recordA, recordB) => {

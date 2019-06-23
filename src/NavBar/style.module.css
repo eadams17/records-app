@@ -16,9 +16,11 @@
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
 }
-
-.searchBar {
-  border-radius: 6px;
+#searchBar {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 .searchBar:focus {
@@ -27,15 +29,13 @@
   outline: 0 none;
 }
 
+.searchGroup {
+  border-radius: none;
+}
+
 .logo > a:focus {
   border-color: #00ff00;
   outline: 0 none;
-}
-
-.label {
-  margin: 0px 10px 0px 10px;
-  color: white;
-  white-space: nowrap;
 }
 
 .logo {
@@ -46,6 +46,10 @@
 }
 
 .button {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
   width: 90px;
   font-family: "Open Sans", sans-serif;
   background-color: #da14ff;

@@ -1,13 +1,38 @@
 import React, { PureComponent } from "react";
 import styles from "./style.module.css";
 import humanizeString from "humanize-string";
-import { Input } from "reactstrap";
+import {
+  Input,
+  ButtonDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
 import { renderIcons } from "../utils/helperFunctions.js";
+import { format } from "url";
 
 class RecordInformation extends PureComponent {
+  state = {
+    dropdownOpen: false,
+    condition: null
+  };
+
+  toggle = () => {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  };
+
+  changeValue = e => {
+    const condition = humanizeString(e.currentTarget.textContent);
+    this.setState({ condition: condition });
+    this.props.updateField(condition, "condition");
+  };
+
   render() {
+    const { dropdownOpen, condition } = this.state;
     const { record, insideModal, updateField, errors } = this.props;
-    const condition = humanizeString(record.condition);
+    const formattedCondition = humanizeString(record.condition);
     const labelStyle = insideModal ? styles.modalLabel : styles.label;
 
     return (
@@ -27,7 +52,7 @@ class RecordInformation extends PureComponent {
               <Input
                 defaultValue={record.album_title}
                 className={styles.infoModal}
-                onChange={value => updateField(value, "album")}
+                onChange={e => updateField(e.target.value, "album")}
               />
               {errors && errors["album"] && (
                 <p className={styles.error}>{errors["album"]}</p>
@@ -48,7 +73,7 @@ class RecordInformation extends PureComponent {
               <Input
                 defaultValue={record.artist.name}
                 className={styles.infoModal}
-                onChange={value => updateField(value, "artist")}
+                onChange={e => updateField(e.target.value, "artist")}
               />
               {errors && errors["artist"] && (
                 <p className={styles.error}>{errors["artist"]}</p>
@@ -67,7 +92,7 @@ class RecordInformation extends PureComponent {
               <Input
                 defaultValue={record.year}
                 className={styles.infoModal}
-                onChange={value => updateField(value, "year")}
+                onChange={value => updateField(value.target.value, "year")}
               />
               {errors && errors["year"] && (
                 <p className={styles.error}>{errors["year"]}</p>
@@ -86,24 +111,39 @@ class RecordInformation extends PureComponent {
           >
             {!insideModal && (
               <li id={styles.condition} className={styles.info}>
-                {condition}
+                {formattedCondition}
               </li>
             )}
             {insideModal && (
-              <div className={styles.inputContainer}>
-                <Input
-                  defaultValue={humanizeString(record.condition)}
-                  className={styles.infoModal}
-                  onChange={value => updateField(value, "condition")}
-                />
-                {errors && errors["condition"] && (
-                  <p className={styles.error}>{errors["condition"]}</p>
-                )}
-              </div>
+              <ButtonDropdown isOpen={dropdownOpen} toggle={this.toggle}>
+                <DropdownToggle className={styles.button} caret size="sm">
+                  {condition ? condition : formattedCondition}
+                </DropdownToggle>
+                <DropdownMenu className={styles.menu}>
+                  <DropdownItem onClick={this.changeValue} dropdownvalue="Mint">
+                    Mint
+                  </DropdownItem>
+                  <DropdownItem
+                    onClick={this.changeValue}
+                    dropdownvalue="Very Good"
+                  >
+                    Very Good
+                  </DropdownItem>
+                  <DropdownItem onClick={this.changeValue} dropdownvalue="Good">
+                    Good
+                  </DropdownItem>
+                  <DropdownItem onClick={this.changeValue} dropdownvalue="Fair">
+                    Fair
+                  </DropdownItem>
+                  <DropdownItem onClick={this.changeValue} dropdownvalue="Poor">
+                    Poor
+                  </DropdownItem>
+                </DropdownMenu>
+              </ButtonDropdown>
             )}
             {!insideModal && (
               <div className={styles.conditionContainer}>
-                {renderIcons(condition)}
+                {renderIcons(formattedCondition)}
               </div>
             )}
           </div>

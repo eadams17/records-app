@@ -8,7 +8,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
   width: auto;
-  overflow: auto;
 }
 
 code {
