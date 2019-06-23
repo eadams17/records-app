@@ -6,7 +6,7 @@ import { renderIcons } from "../utils/helperFunctions.js";
 
 class RecordInformation extends PureComponent {
   render() {
-    const { record, insideModal, updateField } = this.props;
+    const { record, insideModal, updateField, errors } = this.props;
     const condition = humanizeString(record.condition);
     const labelStyle = insideModal ? styles.modalLabel : styles.label;
 
@@ -23,11 +23,16 @@ class RecordInformation extends PureComponent {
             </li>
           )}
           {insideModal && (
-            <Input
-              defaultValue={record.album_title}
-              className={styles.infoModal}
-              onChange={value => updateField(value, "album")}
-            />
+            <div className={styles.inputContainer}>
+              <Input
+                defaultValue={record.album_title}
+                className={styles.infoModal}
+                onChange={value => updateField(value, "album")}
+              />
+              {errors && errors["album"] && (
+                <p className={styles.error}>{errors["album"]}</p>
+              )}
+            </div>
           )}
         </div>
         <div className={styles.row}>
@@ -39,11 +44,16 @@ class RecordInformation extends PureComponent {
             <li className={styles.info}>{record.artist.name}</li>
           )}
           {insideModal && (
-            <Input
-              defaultValue={record.artist.name}
-              className={styles.infoModal}
-              onChange={value => updateField(value, "artist")}
-            />
+            <div className={styles.inputContainer}>
+              <Input
+                defaultValue={record.artist.name}
+                className={styles.infoModal}
+                onChange={value => updateField(value, "artist")}
+              />
+              {errors && errors["artist"] && (
+                <p className={styles.error}>{errors["artist"]}</p>
+              )}
+            </div>
           )}
         </div>
         <div className={styles.row}>
@@ -53,11 +63,16 @@ class RecordInformation extends PureComponent {
           </div>
           {!insideModal && <li className={styles.info}>{record.year}</li>}
           {insideModal && (
-            <Input
-              defaultValue={record.year}
-              className={styles.infoModal}
-              onChange={value => updateField(value, "year")}
-            />
+            <div className={styles.inputContainer}>
+              <Input
+                defaultValue={record.year}
+                className={styles.infoModal}
+                onChange={value => updateField(value, "year")}
+              />
+              {errors && errors["year"] && (
+                <p className={styles.error}>{errors["year"]}</p>
+              )}
+            </div>
           )}
         </div>
         <div className={styles.row}>
@@ -75,11 +90,16 @@ class RecordInformation extends PureComponent {
               </li>
             )}
             {insideModal && (
-              <Input
-                defaultValue={humanizeString(record.condition)}
-                className={styles.infoModal}
-                onChange={value => updateField(value, "condition")}
-              />
+              <div className={styles.inputContainer}>
+                <Input
+                  defaultValue={humanizeString(record.condition)}
+                  className={styles.infoModal}
+                  onChange={value => updateField(value, "condition")}
+                />
+                {errors && errors["condition"] && (
+                  <p className={styles.error}>{errors["condition"]}</p>
+                )}
+              </div>
             )}
             {!insideModal && (
               <div className={styles.conditionContainer}>

@@ -6,7 +6,9 @@ import {
   updateArtistName,
   checkForMultipleArtistEntries,
   getRecordIndex,
-  getFullCollection
+  getFullCollection,
+  checkInputsForContent,
+  titleString
 } from "../utils/helperFunctions";
 
 class RecordUpdate extends PureComponent {
@@ -14,7 +16,8 @@ class RecordUpdate extends PureComponent {
     album: this.props.record.album_title,
     artist: this.props.record.artist.name,
     year: this.props.record.year,
-    condition: this.props.record.condition
+    condition: this.props.record.condition,
+    errors: []
   };
 
   updateField = (e, field) => {
@@ -29,9 +32,12 @@ class RecordUpdate extends PureComponent {
 
     let updatedRecords = fullCollection;
     updatedRecords[recordIndex] = {
-      album_title: album,
-      artist: { name: artist, id: fullCollection[recordIndex].artist.id },
-      condition: condition,
+      album_title: titleString(album),
+      artist: {
+        name: titleString(artist),
+        id: fullCollection[recordIndex].artist.id
+      },
+      condition: titleString(condition),
       year: year,
       id: record.id
     };
@@ -42,21 +48,26 @@ class RecordUpdate extends PureComponent {
     const { allRecords, record, updateRecords, toggle, pageCount } = this.props;
     const { album, artist, year, condition } = this.state;
     const fullCollection = getFullCollection(allRecords, pageCount);
-    const alteredRecords = updateArtistName(fullCollection, record, artist);
-    console.log("alteredRecords", alteredRecords);
+    console.log("fullCollection-update", fullCollection);
+    const alteredRecords = updateArtistName(
+      fullCollection,
+      record,
+      titleString(artist)
+    );
     const recordIndex = getRecordIndex(alteredRecords, record);
 
     let updatedRecords = alteredRecords;
-    console.log("album", album);
     updatedRecords[recordIndex] = {
-      album_title: album,
-      artist: { name: artist, id: alteredRecords[recordIndex].artist.id },
-      condition: condition,
+      album_title: titleString(album),
+      artist: {
+        name: titleString(artist),
+        id: alteredRecords[recordIndex].artist.id
+      },
+      condition: titleString(condition),
       year: year,
       id: record.id
     };
-    console.log("updatedRecord", updatedRecords[recordIndex]);
-    updateRecords(alteredRecords);
+    updateRecords(updatedRecords);
     toggle();
   }
 
@@ -65,6 +76,13 @@ class RecordUpdate extends PureComponent {
   }
 
   handleSubmit = () => {
+    const errors = checkInputsForContent(this.state);
+
+    if (Object.keys(errors).length > 0) {
+      this.setState({ errors: errors });
+      return;
+    }
+
     const { allRecords, record, pageCount } = this.props;
     const fullCollection = getFullCollection(allRecords, pageCount);
     const multipleEntriesExist = checkForMultipleArtistEntries(
@@ -107,6 +125,7 @@ class RecordUpdate extends PureComponent {
             record={record}
             updateField={this.updateField}
             insideModal={true}
+            errors={this.state.errors}
           />
           <ModalFooter className={styles.buttonsContainer}>
             <Button className={styles.button} onClick={this.handleSubmit}>

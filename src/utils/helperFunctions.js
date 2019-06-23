@@ -64,13 +64,15 @@ export const matchRecordEntry = (record, searchString, searchType) => {
   }
 };
 
-export const getFullCollection = (records, pageCount) => {
+export const getFullCollection = records => {
   let fullCollection = [];
+  const pageCount = Object.keys(records).length;
   let pageNumber = 1;
   while (pageNumber <= pageCount) {
     fullCollection = fullCollection.concat(records[pageNumber]);
     pageNumber += 1;
   }
+  console.log("fullCollection-helper", fullCollection);
   return fullCollection;
 };
 
@@ -102,9 +104,7 @@ export const updateArtistName = (allRecords, record, artist) => {
       year: year,
       id: record.id
     };
-    console.log("record", updatedRecords[index]);
   }
-  console.log("updatedRecords", updatedRecords);
   updatedRecords.sort((recordA, recordB) => {
     return recordA.artist.name.localeCompare(recordB.artist.name);
   });
@@ -113,3 +113,23 @@ export const updateArtistName = (allRecords, record, artist) => {
 
 export const getRecordIndex = (allRecords, record) =>
   allRecords.findIndex(recordItem => recordItem.id === record.id);
+
+export const checkInputsForContent = state => {
+  const { album, artist, year, condition } = state;
+  const stateArr = [
+    [album, "album"],
+    [artist, "artist"],
+    [year, "year"],
+    [condition, "condition"]
+  ];
+  const errors = {};
+
+  stateArr.map((value, i) => {
+    return !value[0]
+      ? (errors[value[1]] = `${value[1]} field cannot be blank`)
+      : null;
+  });
+  return errors;
+};
+
+export const titleString = str => str.replace(/\b(\w)/g, k => k.toUpperCase());
