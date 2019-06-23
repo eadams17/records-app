@@ -72,6 +72,7 @@ class RecordUpdate extends PureComponent {
       record
     );
     const artistUpdated = this.state.artist !== this.props.record.artist.name;
+
     if (!artistUpdated || (artistUpdated && !multipleEntriesExist)) {
       this.updateSingleRecord();
     } else {
@@ -98,7 +99,10 @@ class RecordUpdate extends PureComponent {
               onClick={toggle}
             />
           </div>
-          <i className="fas fa-compact-disc fa-9x fa-spin" />
+          <i
+            id={styles.recordIcon}
+            className="fas fa-compact-disc fa-9x fa-spin"
+          />
           <RecordInformation
             record={record}
             updateField={this.updateField}

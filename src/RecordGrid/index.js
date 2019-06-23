@@ -5,6 +5,7 @@ import styles from "./style.module.css";
 class RecordGrid extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { currentPage, pageCount, updatePage } = this.props;
+
     if (currentPage > pageCount) {
       updatePage(pageCount);
     }
@@ -13,6 +14,7 @@ class RecordGrid extends Component {
 
   handlePageChange = direction => {
     const { currentPage, pageCount, updatePage } = this.props;
+
     if (direction === "forward" && pageCount >= currentPage + 1) {
       updatePage(currentPage + 1);
     } else if (direction === "backward" && currentPage - 1 !== 0) {
@@ -29,6 +31,7 @@ class RecordGrid extends Component {
       currentPage
     } = this.props;
     const records = filteredRecords ? filteredRecords : allRecords;
+
     return (
       <div className={styles.container}>
         <div className={styles.recordsContainer}>

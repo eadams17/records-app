@@ -9,6 +9,7 @@ class RecordInformation extends PureComponent {
     const { record, insideModal, updateField } = this.props;
     const condition = humanizeString(record.condition);
     const labelStyle = insideModal ? styles.modalLabel : styles.label;
+
     return (
       <div className={styles.detailsContainer}>
         <div className={styles.row}>

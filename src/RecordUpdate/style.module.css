@@ -1,5 +1,5 @@
 .modal {
-  top: 20%;
+  top: 15%;
 }
 
 .container {
@@ -30,6 +30,10 @@
 #closeIcon:hover {
   color: #9600b2;
   cursor: pointer;
+}
+
+#recordIcon {
+  margin: 10px 0px 10px 0px;
 }
 
 .button {

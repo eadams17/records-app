@@ -26,6 +26,7 @@ class NavBar extends PureComponent {
 
   handleSearchQuery = e => {
     const searchString = e.currentTarget.value;
+
     this.setState({ searchQuery: searchString }, () => {
       this.filterRecordEntries(searchString);
     });
@@ -36,14 +37,17 @@ class NavBar extends PureComponent {
     const { allRecords, updateRecords } = this.props;
     const pageCount = Object.keys(allRecords).length;
     const fullCollection = getFullCollection(allRecords, pageCount);
+
     const filteredRecords = fullCollection.filter(record =>
       matchRecordEntry(record, searchString, searchType)
     );
+
     updateRecords(filteredRecords);
   }
 
   render() {
     const { searchType, dropdownOpen, searchQuery } = this.state;
+
     return (
       <div className={styles.container}>
         <a style={{ textDecoration: "none" }} href="/">
