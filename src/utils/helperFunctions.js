@@ -18,9 +18,22 @@ export const getConditionLevel = condition => {
   }
 };
 
+export const COLOR_CODES = [
+  "#FF0000",
+  "#FF7F00",
+  "#DDDD13",
+  "#7FFF00",
+  "#00FF00"
+];
+
+export const getButtonStyle = condition => {
+  const level = getConditionLevel(condition);
+  const color = COLOR_CODES[level - 1];
+  return { backgroundColor: color, borderColor: color };
+};
+
 export const renderIcons = condition => {
   const level = getConditionLevel(condition);
-  const colorCodes = ["#FF0000", "#FF7F00", "#DDDD13", "#7FFF00", "#00FF00"];
   let icons = [];
 
   if (level > 0) {
@@ -28,7 +41,7 @@ export const renderIcons = condition => {
       icons.push(
         <i
           key={i}
-          style={{ color: colorCodes[level - 1] }}
+          style={{ color: COLOR_CODES[level - 1] }}
           className="fas fa-star"
         />
       );

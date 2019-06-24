@@ -44,7 +44,7 @@ Panel.propTypes = {
   record: PropTypes.object.isRequired,
   toggleModal: PropTypes.func.isRequired,
   handleKeyPress: PropTypes.func.isRequired,
-  imageUrl: PropTypes.string.isRequired
+  imageUrl: PropTypes.string
 };
 
 export default Panel;

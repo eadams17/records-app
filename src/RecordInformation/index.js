@@ -8,7 +8,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import { renderIcons } from "../utils/helperFunctions.js";
+import { renderIcons, getButtonStyle } from "../utils/helperFunctions.js";
 import PropTypes from "prop-types";
 
 class RecordInformation extends PureComponent {
@@ -34,7 +34,7 @@ class RecordInformation extends PureComponent {
     const { record, insideModal, updateField, errors } = this.props;
     const formattedCondition = humanizeString(record.condition);
     const labelStyle = insideModal ? styles.modalLabel : styles.label;
-
+    const conditionDropdown = condition ? condition : formattedCondition;
     return (
       <div className={styles.detailsContainer}>
         <div className={styles.row}>
@@ -116,7 +116,12 @@ class RecordInformation extends PureComponent {
             )}
             {insideModal && (
               <ButtonDropdown isOpen={dropdownOpen} toggle={this.toggle}>
-                <DropdownToggle className={styles.button} caret size="sm">
+                <DropdownToggle
+                  style={getButtonStyle(conditionDropdown)}
+                  className={styles.button}
+                  caret
+                  size="sm"
+                >
                   {condition ? condition : formattedCondition}
                 </DropdownToggle>
                 <DropdownMenu className={styles.menu}>
