@@ -8,7 +8,8 @@ import {
   InputGroup,
   Input
 } from "reactstrap";
-import { matchRecordEntry, getFullCollection } from "../utils/helperFunctions";
+import { matchRecordEntry } from "./helperFunctions";
+import { getFullCollection } from "../utils/sharedHelperFunctions.js";
 import PropTypes from "prop-types";
 
 export class NavBar extends PureComponent {

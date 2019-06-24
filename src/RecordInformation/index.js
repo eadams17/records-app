@@ -8,7 +8,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import { renderIcons, getButtonStyle } from "../utils/helperFunctions.js";
+import { renderIcons, getButtonStyle } from "./helperFunctions.js";
 import PropTypes from "prop-types";
 
 class RecordInformation extends PureComponent {

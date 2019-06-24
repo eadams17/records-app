@@ -6,10 +6,10 @@ import {
   updateArtistName,
   checkForMultipleArtistEntries,
   getRecordIndex,
-  getFullCollection,
   checkInputsForContent,
   titleString
-} from "../utils/helperFunctions";
+} from "./helperFunctions";
+import { getFullCollection } from "../utils/sharedHelperFunctions";
 import PropTypes from "prop-types";
 
 class RecordUpdate extends PureComponent {

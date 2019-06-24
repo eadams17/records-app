@@ -14,11 +14,7 @@ export class App extends PureComponent {
   };
 
   async componentDidMount() {
-    const response = await fetch("./data.json")
-      .then(result => result.json())
-      .then(response => {
-        return response;
-      });
+    const response = await fetch("./data.json").then(result => result.json());
 
     response.sort((recordA, recordB) => {
       return recordA.artist.name.localeCompare(recordB.artist.name);

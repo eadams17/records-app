@@ -3,15 +3,15 @@ import Panel from "../Panel";
 import RecordUpdate from "../RecordUpdate";
 import PropTypes from "prop-types";
 
+const PHOTO_URL = "https://picsum.photos/300";
+
 export class Record extends Component {
   state = { visible: false, imageUrl: null };
 
   async componentDidMount() {
     // API that returns a random photo to be used for record panel background
-    const response = await fetch("https://picsum.photos/300").then(result => {
-      return result.url;
-    });
-    this.setState({ imageUrl: response });
+    const response = await fetch(PHOTO_URL);
+    this.setState({ imageUrl: response.url });
   }
 
   toggleModal = () => {
