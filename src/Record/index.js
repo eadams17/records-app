@@ -4,7 +4,15 @@ import RecordUpdate from "../RecordUpdate";
 import PropTypes from "prop-types";
 
 export class Record extends Component {
-  state = { visible: false };
+  state = { visible: false, imageUrl: null };
+
+  async componentDidMount() {
+    // API that returns a random photo to be used for record panel background
+    const response = await fetch("https://picsum.photos/300").then(result => {
+      return result.url;
+    });
+    this.setState({ imageUrl: response });
+  }
 
   toggleModal = () => {
     this.setState(prevState => ({
@@ -18,15 +26,18 @@ export class Record extends Component {
 
   render() {
     const { record, updateRecords, allRecords, pageCount } = this.props;
-    const { visible } = this.state;
+    const { visible, imageUrl } = this.state;
 
     return (
       <Fragment>
-        <Panel
-          record={record}
-          toggleModal={this.toggleModal}
-          handleKeyPress={this.handleKeyPress}
-        />
+        {imageUrl && (
+          <Panel
+            record={record}
+            imageUrl={imageUrl}
+            toggleModal={this.toggleModal}
+            handleKeyPress={this.handleKeyPress}
+          />
+        )}
         {visible && (
           <RecordUpdate
             record={record}

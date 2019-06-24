@@ -13,7 +13,7 @@ const calc = (x, y) => [
 const trans = (x, y, s) =>
   `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
 
-export function Panel({ record, toggleModal, handleKeyPress }) {
+export function Panel({ record, toggleModal, handleKeyPress, imageUrl }) {
   const [props, set] = useSpring(() => ({
     xys: [0, 0, 1],
     config: { mass: 5, tension: 350, friction: 40 }
@@ -27,7 +27,10 @@ export function Panel({ record, toggleModal, handleKeyPress }) {
       onMouseLeave={() => {
         set({ xys: [0, 0, 1] });
       }}
-      style={{ transform: props.xys.interpolate(trans) }}
+      style={{
+        transform: props.xys.interpolate(trans),
+        backgroundImage: `url(${imageUrl})`
+      }}
       onClick={() => toggleModal()}
       onKeyPress={e => handleKeyPress(e)}
     >
@@ -40,7 +43,8 @@ export function Panel({ record, toggleModal, handleKeyPress }) {
 Panel.propTypes = {
   record: PropTypes.object.isRequired,
   toggleModal: PropTypes.func.isRequired,
-  handleKeyPress: PropTypes.func.isRequired
+  handleKeyPress: PropTypes.func.isRequired,
+  imageUrl: PropTypes.string.isRequired
 };
 
 export default Panel;

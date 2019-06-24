@@ -14,7 +14,8 @@ describe("Panel", () => {
       }
     },
     toggleModal: jest.fn(),
-    handleKeyPress: jest.fn()
+    handleKeyPress: jest.fn(),
+    imgURL: "www.lol.com"
   };
   const component = shallow(<Panel {...mockProps} />);
   it("onClick calls toggleModal", () => {
