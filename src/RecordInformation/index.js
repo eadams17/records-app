@@ -9,7 +9,6 @@ import {
   DropdownItem
 } from "reactstrap";
 import { renderIcons } from "../utils/helperFunctions.js";
-import { format } from "url";
 
 class RecordInformation extends PureComponent {
   state = {
