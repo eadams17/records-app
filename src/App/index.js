@@ -5,7 +5,7 @@ import styles from "./style.module.css";
 
 const LIMIT = 15;
 
-class App extends PureComponent {
+export class App extends PureComponent {
   state = {
     allRecordData: null,
     filteredRecordData: null,

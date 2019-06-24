@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Record from "../Record";
 import styles from "./style.module.css";
 
-class RecordGrid extends Component {
+export class RecordGrid extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
   }

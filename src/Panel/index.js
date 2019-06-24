@@ -12,13 +12,7 @@ const calc = (x, y) => [
 const trans = (x, y, s) =>
   `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
 
-export function Panel({
-  record,
-  toggleModal,
-  isActive,
-  toggleActiveState,
-  handleKeyPress
-}) {
+export function Panel({ record, toggleModal, handleKeyPress }) {
   const [props, set] = useSpring(() => ({
     xys: [0, 0, 1],
     config: { mass: 5, tension: 350, friction: 40 }
