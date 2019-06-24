@@ -65,6 +65,9 @@ export class RecordGrid extends Component {
                 : { visibility: "hidden" }
             }
           />
+          <p className={styles.pageLabel}>
+            {currentPage}/{pageCount}
+          </p>
           <i
             onClick={() => this.handlePageChange("forward")}
             id={styles.rightArrow}
