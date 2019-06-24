@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import { matchRecordEntry, getFullCollection } from "../utils/helperFunctions";
 
-class NavBar extends PureComponent {
+export class NavBar extends PureComponent {
   state = { searchType: "Search By", dropdownOpen: false, searchQuery: "" };
 
   toggle = () => {

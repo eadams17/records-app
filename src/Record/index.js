@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import Panel from "../Panel";
 import RecordUpdate from "../RecordUpdate";
 
-class Record extends Component {
+export class Record extends Component {
   state = { visible: false };
 
   toggleModal = () => {
