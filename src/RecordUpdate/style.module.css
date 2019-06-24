@@ -1,5 +1,17 @@
-.modal {
-  top: 15%;
+.button {
+  background-color: #da14ff;
+  border: 1px solid #da14ff;
+}
+
+.button:hover {
+  background-color: #9600b2;
+  border-color: #9600b2;
+}
+.buttonsContainer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-right: 50px;
 }
 
 .container {
@@ -15,11 +27,8 @@
   width: 100%;
 }
 
-.buttonsContainer {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  margin-right: 50px;
+.modal {
+  top: 15%;
 }
 
 #closeIcon {
@@ -34,14 +43,4 @@
 
 #recordIcon {
   margin: 10px 0px 10px 0px;
-}
-
-.button {
-  background-color: #da14ff;
-  border: 1px solid #da14ff;
-}
-
-.button:hover {
-  background-color: #9600b2;
-  border-color: #9600b2;
 }

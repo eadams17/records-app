@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./style.module.css";
 import RecordInformation from "../RecordInformation";
 import { useSpring, animated } from "react-spring";
+import PropTypes from "prop-types";
 
 const calc = (x, y) => [
   -(y - window.innerHeight / 2) / 20,
@@ -35,5 +36,11 @@ export function Panel({ record, toggleModal, handleKeyPress }) {
     </animated.div>
   );
 }
+
+Panel.propTypes = {
+  record: PropTypes.object.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+  handleKeyPress: PropTypes.func.isRequired
+};
 
 export default Panel;

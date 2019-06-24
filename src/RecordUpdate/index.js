@@ -10,6 +10,7 @@ import {
   checkInputsForContent,
   titleString
 } from "../utils/helperFunctions";
+import PropTypes from "prop-types";
 
 class RecordUpdate extends PureComponent {
   state = {
@@ -48,6 +49,8 @@ class RecordUpdate extends PureComponent {
     const { allRecords, record, updateRecords, toggle, pageCount } = this.props;
     const { album, artist, year, condition } = this.state;
     const fullCollection = getFullCollection(allRecords, pageCount);
+    // update all records with new artist name-- performance heavy,
+    // but would have been handled by a more efficient API call
     const alteredRecords = updateArtistName(
       fullCollection,
       record,
@@ -139,5 +142,14 @@ class RecordUpdate extends PureComponent {
     );
   }
 }
+
+RecordUpdate.propTypes = {
+  record: PropTypes.object.isRequired,
+  allRecords: PropTypes.object.isRequired,
+  visible: PropTypes.bool,
+  toggle: PropTypes.func.isRequired,
+  updateRecords: PropTypes.func.isRequired,
+  pageCount: PropTypes.number.isRequired
+};
 
 export default RecordUpdate;

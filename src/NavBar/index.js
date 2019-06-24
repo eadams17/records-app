@@ -9,6 +9,7 @@ import {
   Input
 } from "reactstrap";
 import { matchRecordEntry, getFullCollection } from "../utils/helperFunctions";
+import PropTypes from "prop-types";
 
 export class NavBar extends PureComponent {
   state = { searchType: "Search By", dropdownOpen: false, searchQuery: "" };
@@ -34,6 +35,7 @@ export class NavBar extends PureComponent {
 
   filterRecordEntries(searchString) {
     const { searchType } = this.state;
+    // have default search to all without any user interaction with dropdown
     const searchCategory = searchType === "Search By" ? "all" : searchType;
     const { allRecords, updateRecords } = this.props;
     const pageCount = Object.keys(allRecords).length;
@@ -102,5 +104,12 @@ export class NavBar extends PureComponent {
     );
   }
 }
+
+NavBar.propTypes = {
+  allRecords: PropTypes.object.isRequired,
+  filteredRecords: PropTypes.object,
+  updateRecords: PropTypes.func.isRequired,
+  currentPage: PropTypes.number
+};
 
 export default NavBar;

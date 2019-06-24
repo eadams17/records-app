@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Record from "../Record";
 import styles from "./style.module.css";
+import PropTypes from "prop-types";
 
 export class RecordGrid extends Component {
   componentDidMount() {
@@ -8,7 +9,7 @@ export class RecordGrid extends Component {
   }
   componentDidUpdate(prevProps, prevState) {
     const { currentPage, pageCount, updatePage } = this.props;
-
+    // account for case where user is on last page and updates search query
     if (currentPage > pageCount) {
       updatePage(pageCount);
     }
@@ -49,7 +50,6 @@ export class RecordGrid extends Component {
                   allRecords={allRecords}
                   updateRecords={updateRecords}
                   pageCount={pageCount}
-                  currentPage={currentPage}
                 />
               );
             })}
@@ -80,5 +80,14 @@ export class RecordGrid extends Component {
     );
   }
 }
+
+RecordGrid.propTypes = {
+  allRecords: PropTypes.object.isRequired,
+  filteredRecords: PropTypes.object,
+  updateRecords: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  pageCount: PropTypes.number.isRequired,
+  updatePage: PropTypes.func.isRequired
+};
 
 export default RecordGrid;

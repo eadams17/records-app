@@ -1,50 +1,3 @@
-.container {
-  display: flex;
-  position: fixed;
-  justify-content: space-between;
-  align-items: center;
-  height: 100px;
-  width: 100%;
-  background-color: black;
-  z-index: 100;
-}
-
-.searchContainer {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-  font-family: "Open Sans", sans-serif;
-  font-size: 14px;
-}
-#searchBar {
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-
-.searchBar:focus {
-  box-shadow: 0 1px 1px #00ff00 inset, 0 0 8px #00ff00;
-  border-color: #00ff00;
-  outline: 0 none;
-}
-
-.searchGroup {
-  border-radius: none;
-}
-
-.logo > a:focus {
-  border-color: #00ff00;
-  outline: 0 none;
-}
-
-.logo {
-  font-family: "B612 Mono", monospace;
-  font-size: 40px;
-  margin-left: 20px;
-  color: white;
-}
-
 .button {
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
@@ -67,8 +20,15 @@
   border-color: #9600b2;
 }
 
-.menu {
-  font-family: "Open Sans", sans-serif;
+.container {
+  display: flex;
+  position: fixed;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+  background-color: black;
+  z-index: 100;
 }
 
 .instructions {
@@ -77,4 +37,34 @@
   color: white;
   width: 400px;
   text-align: center;
+}
+
+.logo {
+  font-family: "B612 Mono", monospace;
+  font-size: 40px;
+  margin-left: 20px;
+  color: white;
+}
+
+.menu {
+  font-family: "Open Sans", sans-serif;
+}
+
+#searchBar {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+}
+
+.searchGroup {
+  border-radius: none;
 }

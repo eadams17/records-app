@@ -9,6 +9,7 @@ import {
   DropdownItem
 } from "reactstrap";
 import { renderIcons } from "../utils/helperFunctions.js";
+import PropTypes from "prop-types";
 
 class RecordInformation extends PureComponent {
   state = {
@@ -151,5 +152,12 @@ class RecordInformation extends PureComponent {
     );
   }
 }
+
+RecordInformation.propTypes = {
+  record: PropTypes.object.isRequired,
+  updateField: PropTypes.func,
+  insideModal: PropTypes.bool,
+  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+};
 
 export default RecordInformation;

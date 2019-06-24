@@ -4,17 +4,17 @@
   background-color: black;
 }
 
+.paginationContainer {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: black;
+}
+
 .recordsContainer {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
-  background-color: black;
-}
-
-.paginationContainer {
-  display: flex;
-  justify-content: space-evenly;
   background-color: black;
 }
 

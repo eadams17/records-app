@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Panel from "../Panel";
 import RecordUpdate from "../RecordUpdate";
+import PropTypes from "prop-types";
 
 export class Record extends Component {
   state = { visible: false };
@@ -16,13 +17,7 @@ export class Record extends Component {
   };
 
   render() {
-    const {
-      record,
-      updateRecords,
-      allRecords,
-      pageCount,
-      currentPage
-    } = this.props;
+    const { record, updateRecords, allRecords, pageCount } = this.props;
     const { visible } = this.state;
 
     return (
@@ -40,12 +35,18 @@ export class Record extends Component {
             toggle={this.toggleModal}
             updateRecords={updateRecords}
             pageCount={pageCount}
-            currentPage={currentPage}
           />
         )}
       </Fragment>
     );
   }
 }
+
+Record.propTypes = {
+  record: PropTypes.object.isRequired,
+  allRecords: PropTypes.object.isRequired,
+  updateRecords: PropTypes.func.isRequired,
+  pageCount: PropTypes.number.isRequired
+};
 
 export default Record;
