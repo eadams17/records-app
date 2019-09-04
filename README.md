@@ -4,12 +4,12 @@ A small app that stores and display record information, with the ability to edit
 
 ## Setup
 
-1. From the root directory, run `npm install`
-2. Run `npm run start`
+1. From the root directory, run `yarn install`
+2. Run `yarn start`
 
 The app should now be accessible from `http://localhost:3000/`
 
-To run tests, run `npm run test` in a separate terminal.
+To run tests, run `yarn run test` in a separate terminal.
 
 ## Overview
 

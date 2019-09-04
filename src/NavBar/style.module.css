@@ -68,3 +68,15 @@
 .searchGroup {
   border-radius: none;
 }
+
+@media (pointer: none), (pointer: coarse) {
+  .container {
+    height: auto;
+    flex-direction: column;
+  }
+  .instructions {
+    font-size: 0.9em;
+    width: auto;
+    margin-bottom: 10px;
+  }
+}

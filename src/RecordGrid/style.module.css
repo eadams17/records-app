@@ -37,3 +37,9 @@
   cursor: pointer;
   color: #9600b2;
 }
+
+@media (pointer: none), (pointer: coarse) {
+  .container {
+    margin-top: 130px;
+  }
+}

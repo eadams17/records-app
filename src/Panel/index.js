@@ -28,7 +28,7 @@ export function Panel({ record, toggleModal, handleKeyPress, imageUrl }) {
         set({ xys: [0, 0, 1] });
       }}
       style={{
-        transform: props.xys.interpolate(trans),
+        transform: props.xys.to(trans),
         backgroundImage: `url(${imageUrl})`
       }}
       onClick={() => toggleModal()}
